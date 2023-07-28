@@ -15,8 +15,8 @@ function App() {  // they are equivalent, function can be hoisted(declared after
     return (
       <ThirdwebProvider desiredChainId={8001}>
 
-        <WalletConnect />
-        
+        <WalletConnect  />
+
 {/* 
       <ConnectWallet
         theme="dark"
