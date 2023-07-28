@@ -36,7 +36,8 @@ function App() {  // they are equivalent, function can be hoisted(declared after
 
             <img src={logo} className="App-logo" alt="logo" />
             <p>
-              DNS unresolved: <code>erc.adriannyc.dev</code> to url<code>adriannyc.dev/erc20-faucetv2</code>
+              DNS unresolved: <code> adriannyc.dev/erc20-faucetv2 </code> to url <code> erc.adriannyc.dev </code>
+              changing homepage from "https://adrianmnh.github.io/" to "https://adrianmnh.github.io"
             </p>
             <a
               className="App-link"
