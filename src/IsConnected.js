@@ -1,3 +1,4 @@
+import { is, isConditional, isDirective } from "@babel/types";
 import { useAddress } from "@thirdweb-dev/react";
 import { useChain, useConnectionStatus } from "@thirdweb-dev/react";
 import React, { useState, useEffect } from 'react';
@@ -25,7 +26,15 @@ const IsConnected = () => {
 
   
     if (status === "unknown") return <div> Loading... </div>;
-    if (status === "disconnected") return <div> IsConnected disconnected </div>;
+    if (status === "disconnected") return (
+    <div> 
+       
+        <code> IsConnectedComponent: </code> {status}
+
+        {console.log('IsConneted:', status)}
+        
+    </div>
+    );
     if (status === "connecting") return (
     <div>
         <p> connecting... </p>
@@ -34,14 +43,15 @@ const IsConnected = () => {
   
     if (chain) {
         <div>
+
+            <code> IsConnectedComponent: </code> {status}
+
+            {console.log('IsConneted:', status)}
             console.log('Connected to chain:', chain);
             <p> Connected to {chain.name} </p>
         </div>
     };
 
-
-      
-    
   
     return (
         <div>

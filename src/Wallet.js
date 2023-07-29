@@ -10,7 +10,6 @@ import { Goerli } from '@thirdweb-dev/chains';
 import { useAddress } from "@thirdweb-dev/react";
 import { useChain, useConnectionStatus } from "@thirdweb-dev/react";
 
-let isConn;
 
 const Wallet = (props) => {
 
@@ -75,11 +74,13 @@ const Wallet = (props) => {
             
             { address !== null && address !== undefined &&(
 
-                <div>My wallet address is </div> 
-            )
+              <div>My wallet address is </div> 
+              )
             }
 
-            <div> Status: {status} </div>
+            <div> 
+              <code> WalletComponent: </code> {status}
+            </div>
             
             </>
             
