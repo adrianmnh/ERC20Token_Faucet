@@ -1,66 +1,85 @@
+
 import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 import Navbar from './Navbar';
-import WalletConnect from './WalletConnect';
+import Wallet from './Wallet';
+import WebButton from './WebButton';
+import MiscTest from './MiscTest';
+import IsConnected from './IsConnected';
 
-import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
-
+import { ThirdwebProvider, Web3Button } from "@thirdweb-dev/react";
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 
-function App() {  // they are equivalent, function can be hoisted(declared after usage) but not const
-  // const App = () => {
-    
-    /* this behavior should not affect app since each component is independent and defined in its own file */
-
-    return (
-      <ThirdwebProvider desiredChainId={8001}>
-
-        <WalletConnect  />
-
-{/* 
-      <ConnectWallet
-        theme="dark"
-        btnTitle="Connect Wallet"
-      />
-       */}
-
-
-      <Navbar />
-
-        <div className="App">
-          <header className="App-header">
+import { useConnect } from "@thirdweb-dev/react";
+import { metamaskWallet } from "@thirdweb-dev/react";
 
 
 
+function App() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const onConnected = (wallet) => {
+    console.log(`Wallet connected successfully: ${wallet.name}`);
+    // You can perform any actions you need when the wallet is connected here
+  };
 
 
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              DNS unresolved: <code> adriannyc.dev/erc20-faucetv2 </code> to url <code> erc.adriannyc.dev </code>
-              changing homepage from "https://adrianmnh.github.io/" to "https://adrianmnh.github.io"
-            </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              >
-              Learn React
-            </a>
-          </header>
-        </div>
+//   const connect = useConnect();
 
-    </ThirdwebProvider>
-  );
-}
+//   const handleConnect = async () => {
+//     try {
+//       await connect(walletConnectConfig, { chainId: "YOUR_CHAIN_ID" });
+//     } catch (error) {
+//       console.error("Error connecting wallet:", error);
+//     }
+//   };
 
-export default App;
-
-
-// const App = () => {
 //   return (
-//     <ThirdwebProvider desiredChainId={5}>
-//       <YourApp />
+//     <ThirdwebProvider supportedWallets={[walletConnectConfig]} clientId="your-client-id">
+//       <div>
+//         {/* Your app content */}
+//         <button onClick={handleConnect}>Connect Wallet</button>
+//       </div>
 //     </ThirdwebProvider>
 //   );
-// };
+// }
+
+
+
+    
+
+
+    return (
+
+      
+      <ThirdwebProvider activeChain="goerli" clientId="23791635ed1c38db280bf3c0c0f04b68">
+  
+  
+  
+        <div className="App">
+          <header className="App-header">
+  
+
+        <Wallet
+        onConnected={onConnected}
+        theme="light" 
+      />
+
+      <IsConnected />
+  
+    
+        { <WebButton name={"hello"} isLoggedIn={isLoggedIn} /> }
+        { <WebButton isConnected={false} isLoggedIn={isLoggedIn} /> }
+  
+            <img src={logo} className="App-logo" alt="logo" />
+            <p> "https://erc.adriannyc.dev" </p>
+  
+          </header>
+        </div>
+  
+       </ThirdwebProvider>
+    );
+  }
+  export default App;

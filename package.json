@@ -1,7 +1,7 @@
 {
   "name": "erc20-faucet",
   "version": "0.1.0",
-  "homepage": "https://adrianmnh.github.io",
+  "homepage": "http://erc.adriannyc.dev",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
