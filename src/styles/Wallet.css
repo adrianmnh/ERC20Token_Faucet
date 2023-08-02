@@ -1,0 +1,101 @@
+
+.tw-connect-wallet{
+	font-size: 20px!important;
+	background: #40a79e!important;
+	padding: 1em 1.6em !important;
+	color: white !important;
+	font-weight: 600 !important;
+	border-radius: 15px !important;
+
+}
+
+
+.tw-connected-wallet {
+	/* background: gold !important; */
+	padding-top: 1em !important;
+	padding-bottom: 1em !important;
+	padding-right: 1.25em !important;
+	border-radius: 18px !important;
+}
+
+
+
+@media screen and (min-width: 815px) {
+
+	.tw-connect-wallet,
+	.custom-wallet,
+	.tw-connectec-wallet {
+
+	}
+
+
+	/* [class^="tw-connected-wallet__"] ,  */
+	[class*="tw-connected-wallet__"] {
+		/* left: 50%!important; */
+		/* left: 50%!important; */
+		/* background-color: red!important; */
+
+	}
+
+	/* wallet-icon or network-icon */
+	[class*="network-icon"] {
+		/* height: 2em!important;
+		width: auto!important;
+		aspect-ratio: auto 1 / 1!important; */
+		/* margin-right: -.5em!important;	 */
+	}
+
+
+	[class*="wallet-icon"] {
+		/* height: 2em!important;
+		width: auto!important; */
+		/* width: 1.8em!important; */
+	}
+
+	/* balance or address */
+	[class*="balance"] {
+		/* background-color: blue!important; */
+		/* font-size: calc(90%)!important; */
+		/* font-size: .9em!important; */
+		/* color: red!important; */
+	}
+
+	[class*="address"] {
+		/* background-color: blue!important; */
+		/* font-size: .75em!important; */
+		/* font-size: calc(75%)!important; */
+		/* color: red!important; */
+	}
+
+
+
+	.tw-connected-wallet {
+		/* background-color: azure!important;` */
+	}
+
+	/* .tw-connected-wallet__network-icon , .tw-connected-wallet__wallet-icon , .tw-connected-wallet__balance{
+		background-color: red!important;
+		width: 45px!important;
+		height: 45px!important;
+	} */
+	.css-xwqapx {
+		/* background-color: blue !important; */
+	}
+
+	.css-qeag2n {}
+
+	.css-css-1iyoj2o {
+		/* margin-left: -111em!important; */
+	}
+}
+
+@media screen and (max-width: 815px) {
+
+	.css-xwqapx {
+		/* background-color: gold !important; */
+		/* top: 150%; */
+		/* left: 100%!important; */
+		/* transform: translate(-100%, 100%)!important;*/
+	}
+
+}
