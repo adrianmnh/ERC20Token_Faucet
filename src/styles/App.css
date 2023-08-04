@@ -1,86 +1,47 @@
 .App {
 	text-align: center;
-}
-
-.App-logo {
+  }
+  
+  .App-logo {
 	height: 25vmin;
 	pointer-events: none;
-}
-
-.tw-web3button {
-	background-color: #282c34;
+  }
+  
+  .tw-web3button,
+  .button-token-data {
+	background-color: var(--background-color);
 	color: white;
 	border: 2px solid white;
 	border-radius: 15px !important;
-	padding: .5em 1.3em !important;
+	padding: 0.5em 1.3em !important;
 	font-size: 1em !important;
-}
-
-.site-url {
+  }
+  
+  .site-url {
 	font-size: 2em;
 	font-weight: 900;
 	font-stretch: ultra-expanded;
-}
-
-.user-data {
+  }
+  
+  .user-data,
+  .address-data {
 	opacity: 0;
 	transition: opacity 6s;
-}
-
-.user-data-show {
+  }
+  
+  .user-data-show,
+  .address-data-show {
 	opacity: 1 !important;
 	transition: opacity 4s ease-in-out;
-}
-
-@media (prefers-reduced-motion: no-preference) {
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
 	.App-logo {
-		animation: App-logo-spin infinite 9.9s linear;
+	  animation: App-logo-spin infinite 9.9s linear;
 	}
-}
+  }
 
-.contract-input-box {
-	background-color: #282c34;
-	color: white;
-	border: 2px solid white;
-	border-radius: 15px !important;
-	padding: .5em 1.3em !important;
-	font-size: 1em !important;
-}
-
-.App-header {
-	background-color: #282c34;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	font-size: 1em;
-	color: white;
-	position: relative;
-	/* z-index: 1; */
-}
-
-code {
-	font-size: calc(10px + .9vmin);
-}
-
-.App-link {
-	color: #61dafb;
-}
-
-.button-container {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	column-gap: 1em;
-}
-
-.button-token-data {
-	font-size: .8em;
-}
-
-@keyframes App-logo-spin {
+  @keyframes App-logo-spin {
 	from {
 		transform: rotate(0deg);
 	}
@@ -89,203 +50,217 @@ code {
 		transform: rotate(360deg);
 	}
 }
-
-.top-right {
+  
+  .contract-input-field,
+  .input-field,
+  .contract-input-button,
+  .button-container button {
+	background-color: var(--background-color);
+	color: white;
+	border: 2px solid white;
+	border-radius: 15px !important;
+	padding: 0.5em 1.3em !important;
+	font-size: 1em !important;
+	margin-top: -1em;
+  }
+  
+  .App-header {
+	background-color: var(--background-color);
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: 1em;
+	color: white;
+	position: relative;
+  }
+  
+  button:hover,
+  /* .tw-web3button:hover, */
+  .button-token-data:hover {
+	background-color: var(--accent-color) !important;
+	color: black !important;
+  }
+  
+  /* .tw-web3button:active, */
+  button:active{
+	background-color: var(--accent-color) !important;
+	color: black !important;
+  }
+  
+  .top-right {
 	position: absolute !important;
-	top: .5em;
-	/* Adjust the top value to your desired vertical position */
+	top: 0.5em;
 	right: 1.5em;
-	/* Adjust the right value to your desired horizontal position */
-	/* z-index: 2; */
-	/* Set a higher value to place it on top of .App-header's children */
-}
-
-.wallet-container {
+  }
+  
+  .wallet-container {
 	/* width: 100%; */
-}
-
-.methods-container {
-	/* background-color: rgba(228, 224, 200, 0.288); */
+  }
+  
+  .methods-container {
 	display: flex;
 	flex-direction: row;
 	height: 30em;
 	width: 92%;
-	/* justify-content: space-around; */
-	/* align-content: start; */
 	align-items: start;
 	border-radius: 15px;
 	column-gap: 1.5em;
-}
-
-.left .right {
+  }
+  
+  .left,
+  .right {
 	display: flex;
 	flex-direction: column;
 	column-gap: 1.2em;
 	width: 100%;
-}
-
-
-.col-style {
+  }
+  
+  .col-style,
+  .row-style {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-content: stretch;
-	/* width: 70%; */
-	height: 95%;
-	row-gap: .5em;
-}
-
-.row-style {
-	/* background-color: #282c34; */
+	flex: 1;
+	gap: 0.5em;
+  }
+  
+  .row-style {
 	display: flex;
 	flex-direction: row;
-	/* height: 95%; */
+	flex-wrap: wrap;
 	justify-content: flex-start;
-	/* align-items: center; */
-	align-content: flex-start;
-}
-
-.function-button,
-.input-field,
-.function-output {
+	align-items: stretch;
+  }
+  
+  .function-button,
+  .input-field,
+  .function-output {
 	content: flex-start;
-	padding: .5em;
-	font-size: .7em;
+	padding: 0.5em;
+	font-size: 0.7em;
 	height: auto;
-}
-
-.function-button,
-.input-field {
-	background-color: #282c34;
+  }
+  
+  .function-button,
+  .input-field {
+	background-color: var(--background-color);
 	color: white;
 	border: 2px solid white;
 	border-radius: 15px !important;
-	padding: .5em 1.3em !important;
+	padding: 0.5em 1.3em !important;
 	font-size: 1em !important;
 	height: 100%;
-}
-
-.function-button {
+  }
+  
+  .function-button {
 	min-width: 8em;
-}
-
-.function-button:hover,
-.tw-web3button:hover {
-	background-color: #61dafb !important;
-	color: black !important;
-}
-
-.function-button:active,
-.tw-web3button:active {
-	background-color: #61dafb !important;
-	color: black !important;
-}
-
-.input-field {
+  }
+  
+  .input-field {
 	width: 10em;
-	font-size: .5em;
+	font-size: 0.5em;
 	margin-right: 2%;
 	min-width: 8em;
-	border: .5px solid white;
-	/* height: 1em; */
-}
-
-.function-button {
+	border: 0.5px solid white;
+  }
+  
+  .function-button {
 	margin-right: 2%;
-}
-
-.function-output {
+  }
+  
+  .function-output {
 	opacity: 0;
 	transition: opacity 5s ease-out;
-	/* Adjust the duration of the transition as needed */
-}
-
-.function-output.show-result {
+  }
+  
+  .function-output.show-result {
 	opacity: 1;
 	transition: opacity 4s ease-in-out;
-}
+  }
+  
+  .contract-input-button {
+	border: 0;
+  }
+  
+  @media screen and (max-width: 815px) {
 
-/* Adjust spacing and font size for mobile screens */
-@media screen and (max-width: 815px) {
+	.function-button:focus,
+	.button-token-data:focus,
+	.contract-input-button:active,
+	.contract-input-button:focus,
+	.contract-input-button:hover
+	/* button:focus  */
+	{
+	  background-color: var(--accent-color) !important;
+	  color: black !important;
+	}
+
 	.button-container {
-		flex-direction: column;
+	  flex-direction: column;
 	}
-
-
+  
 	.methods-container {
-		height: auto;
-		width: 100%;
+	  height: auto;
+	  width: 100%;
 	}
-
+  
 	.function-button,
 	.input-field,
 	.function-output {
-		font-size: 0.6em;
+	  font-size: 0.6em;
 	}
-
+  
 	.function-button {
-		padding: .7em;
+	  padding: 0.7em;
 	}
-
+  
 	.methods-container {
-		/* width: 90%; */
-		flex-direction: column;
-		align-items: center;
-		justify-items: space-around;
+	  flex-direction: column;
+	  align-items: center;
+	  justify-items: space-around;
 	}
-
-	.col-style {
-		/* width: 100%; */
-		flex-direction: column;
-		/* align-items: center;
-		justify-content: center;
-		justify-items: space-around;
-		align-content: center; */
-	}
-
+  
+	.col-style,
 	.row-style {
-		width: 100%;
-		margin-top: .2em;
-		margin-bottom: .2em;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: flex-start;
-
-		align-items: stretch;
-		/* justify-items: center; */
-		/* align-content: center; */
+	  width: 100%;
+	  margin-top: 0.2em;
+	  margin-bottom: 0.2em;
 	}
-
+  
 	.top-right {
-		position: absolute;
-		top: 0.25em;
-		right: 1.5em;
+	  position: absolute;
+	  top: 0.25em;
+	  right: 1.5em;
 	}
-
+  
 	.wallet-container {
-		width: auto;
+	  width: auto;
 	}
-
+  
 	.App-header {
-
-		font-size: calc(10px + .8vmin);
-
+	  font-size: calc(10px + 0.8vmin);
 	}
-
-	.left .right {
-
-		/* width: 100%; */
-		/* flex-direction: column;
-		align-items: center; */
-	}
-}
-
-
-@media screen and (max-width: 1215px) {
+  }
+  
+  @media screen and (max-width: 1215px) {
 	.methods-container {
-		/* width: 90%; */
-		flex-direction: column;
-		height: 100%;
+	  flex-direction: column;
+	  height: 100%;
 	}
+  }
 
-}
+
+  /* Set default opacity to 0 for elements */
+.added-element {
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out; /* Apply transition to opacity property */
+  }
+  
+  /* When the element gets added, update the opacity to 1 */
+  .added-element.show {
+	opacity: 1;
+  }
+  
