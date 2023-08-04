@@ -8,22 +8,35 @@ const IsConnected = (props) => {
 	const [shouldRenderDelayed, setShouldRenderDelayed] = useState(false);
 	const [notLoaded, setNotLoaded] = useState(false);
 	const [showUserData, setShowUserData] = useState("user-data");
+	const [showContractAddress, setShowContractAddress] = useState("address-data");
 	const chain = useChain();
-	const address = useAddress();
-	let shortAddress = "";
-	let status = useConnectionStatus();
-	const contract_data = props.contract_data;
+	const userAddress = useAddress();
+	let userShortAddress = "";
+	let contractShortAddress = "";
+	// let status = useConnectionStatus();
+	const contract = props.contract;
+	const status = props.status;
 
-	if (address !== undefined) {
+	const contractAddress = props.contractAddress;
 
-		shortAddress = address;
-		// shortAddress = address.substring(0, 6) + "..." + address.substring(address.length - 4, address.length);
+	if (userAddress !== undefined) {
+
+		userShortAddress = userAddress;
+		// userShortAddress = userAddress.substring(0, 6) + "..." + userAddress.substring(userAddress.length - 4, userAddress.length);
 	}
+
+	if (contract !== undefined) {
+		contractShortAddress = contractAddress;
+		// contractShortAddress = contractAddress.substring(0, 6) + "..." + contractAddress.substring(contractAddress.length - 4, contractAddress.length);
+	}
+
+	// console.log(contract);
 
 	useEffect(() => {
 		if (status === "connected") {
-			// setShowUserData("user-data-show");
-			
+
+			console.log(chain);
+
 			setTimeout(() => {
 				setShouldRenderDelayed(true);
 				setNotLoaded(true);
@@ -32,7 +45,7 @@ const IsConnected = (props) => {
 				}
 					, 100);
 
-			}, 3000);
+			}, 500);
 		} else {
 			setNotLoaded(false);
 			setShouldRenderDelayed(false);
@@ -40,7 +53,22 @@ const IsConnected = (props) => {
 		}
 	}, [status]);
 
+	useEffect(() => {
+		if (contract.isSuccess) {
 
+			setTimeout(() => {
+				setTimeout(() => {
+					setShowContractAddress("address-data-show");
+				}
+					, 50);
+
+			}, 10);
+		} else {
+			setShowContractAddress("address-data");
+		}
+	}, [contract]);
+
+	const contractLoaded = contract.isSuccess;
 
 	return (
 		<>
@@ -60,13 +88,21 @@ const IsConnected = (props) => {
 			{chain && (
 				<div>
 					{/* <code>IsConnectedComponent: </code> {status} */}
-					{!notLoaded && showUserData=="user-data" && <p>Loading user address...</p>}
-					{ shouldRenderDelayed && (
-					<div className={`user-data ${showUserData}`}>
-						{contract_data != "" && (<div><p></p>Contract Address is <code>{contract_data}</code></div>)}
-						<p></p>User address is <code>{shortAddress}</code>
-						<p></p>Connected to <code>{chain.name}</code>
-					</div>
+					{!notLoaded && showUserData == "user-data" && <p>Loading user address...</p>}
+					{shouldRenderDelayed && (
+						<div className={`user-data ${showUserData}`}>
+							{contractLoaded && (
+								<div className={`contractAddress ${showContractAddress}`}>
+									<p></p>Contract Address is
+									<code> {contractShortAddress}</code>
+								</div>
+							)}
+							<p></p>User address is
+							<code> {userShortAddress}</code>
+							<p></p>Connected to
+							{/* <code> {chain.name}</code> */}
+							<code> {chain.title}</code>
+						</div>
 
 					)}
 				</div>

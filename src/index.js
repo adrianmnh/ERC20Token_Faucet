@@ -40,7 +40,7 @@ root.render(
 
 		>
 
-			<App contract_data="" />
+			<App contractAddress="" />
 
 		</ThirdwebProvider>
 

@@ -34,77 +34,92 @@ const handleClick2 = async (contract) => {
 
 
 const MiscTest = (props) => {
-	
-	const contract_data = props.contract_data;
-	
-	const { contract, isSuccess, error } = useContract(contract_data);
-	
-	
+
+	const contractAddress = props.contractAddress;
+
+	const { contract, isSuccess, error } = useContract(contractAddress);
+
+
 	const [tokenData, setTokenData] = useState(null);
 
-	if(isSuccess){
+	const [elements, setElements] = useState([]);
+
+	const handleAddElement = () => {
+		const newElement = <div className="added-element show">New Element</div>;
+		setElements(prevElements => [...prevElements, newElement]);
+	};
+
+	// console.log(contractAddress);
+	if (isSuccess) {
+
 		return (
 			<div>
 
+				<div>
+					<button onClick={handleAddElement}>Add Element</button>
+					<div className="container">
+						{elements}
+					</div>
+				</div>
+
+				<button onClick={() => handleClick(contract)}>contract.call(burn(1))</button>
+				{/* <button onClick={() => handleClick2(contract)}>contract.call(burn(1))</button> */}
 				<MiscTestChain contract={contract} />
-				
-			<button onClick={() => handleClick(contract)}>contract.call(burn(1))</button>
-			{/* <button onClick={() => handleClick2(contract)}>contract.call(burn(1))</button> */}
 			</div>
 		)
 	}
-	
+
 
 
 	// const contractHook = useContractRead(contract, 'burn', [1]);
 	// if(contractHook.isSuccess){
 	// 	console.log(contractHook);
 	// }
-	
-	
-	
-	
+
+
+
+
 	// 	useEffect(() => {
-		// 		if(isSuccess){
-			
-			// 			getTokenData(contract)
-			// 				.then((data) => {
-// 					setTokenData(data);
-// 				})
-// 				.catch((error) => {
+	// 		if(isSuccess){
+
+	// 			getTokenData(contract)
+	// 				.then((data) => {
+	// 					setTokenData(data);
+	// 				})
+	// 				.catch((error) => {
 	// 					console.error('Error in MiscTest:', error);
 	// 				});
 	// 		}
 	// 	}, [contract]);
-	
+
 	// 	if (isSuccess) {
-		// 		if (!tokenData) {
-			// 			return <div>Loading...</div>;
-			// 		}
-			// 		console.log(tokenData);
-			// 		console.log(tokenData.receipt);
-			
-			// 		return (
-				// 			<div>
-				// 				Success. now do something with the data.
-				// 			</div>
-				// 		);
-				// 	} else {
-					// 		return (
-						// 			<div>
-						// 				{error}
-						// 			</div>
-						// 		);
-						// 	}
+	// 		if (!tokenData) {
+	// 			return <div>Loading...</div>;
+	// 		}
+	// 		console.log(tokenData);
+	// 		console.log(tokenData.receipt);
+
+	// 		return (
+	// 			<div>
+	// 				Success. now do something with the data.
+	// 			</div>
+	// 		);
+	// 	} else {
+	// 		return (
+	// 			<div>
+	// 				{error}
+	// 			</div>
+	// 		);
+	// 	}
 
 	return (
 		<div>
 			Not loaded yet
-		{/* <button onClick={() => handleClick(contract)}>contract.call(burn(1))</button> */}
-		{/* <button onClick={() => handleClick2(contract)}>contract.call(burn(1))</button> */}
+			{/* <button onClick={() => handleClick(contract)}>contract.call(burn(1))</button> */}
+			{/* <button onClick={() => handleClick2(contract)}>contract.call(burn(1))</button> */}
 		</div>
 	)
-	
+
 };
 
 
@@ -113,29 +128,29 @@ export default MiscTest;
 
 
 // 7: Object { type: "function", name: "burn", stateMutability: "nonpayable", … }
-// ​​​
+//
 // inputs: Array [ {…} ]
-// ​​​​
+//
 // 0: Object { type: "uint256", name: "amount", internalType: "uint256" }
-// ​​​​
+//
 // length: 1
-// ​​​​
+//
 // <prototype>: Array []
-// ​​​
+//
 // name: "burn"
-// ​​​
+//
 // outputs: Array [ {…} ]
-// ​​​​
+//
 // 0: Object { type: "bool", name: "", internalType: "bool" }
-// ​​​​
+//
 // length: 1
-// ​​​​
+//
 // <prototype>: Array []
-// ​​​
+//
 // stateMutability: "nonpayable"
-// ​​​
+//
 // type: "function"
-// ​​​
+//
 // <prototype>: Object { … }
 
 
