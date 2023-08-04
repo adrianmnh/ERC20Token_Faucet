@@ -63,11 +63,9 @@ const IsConnected = (props) => {
 					{!notLoaded && showUserData=="user-data" && <p>Loading user address...</p>}
 					{ shouldRenderDelayed && (
 					<div className={`user-data ${showUserData}`}>
+						{contract_data != "" && (<div><p></p>Contract Address is <code>{contract_data}</code></div>)}
 						<p></p>User address is <code>{shortAddress}</code>
 						<p></p>Connected to <code>{chain.name}</code>
-						{contract_data != "" && (<div><p></p>Contract Address is <code>{contract_data}</code></div>)
-
-						}
 					</div>
 
 					)}

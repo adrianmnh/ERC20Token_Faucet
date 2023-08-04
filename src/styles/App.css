@@ -202,7 +202,7 @@ code {
 
 .function-output.show-result {
 	opacity: 1;
-	transition: opacity 2s ease-in;
+	transition: opacity 4s ease-in-out;
 }
 
 /* Adjust spacing and font size for mobile screens */

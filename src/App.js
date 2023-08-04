@@ -4,7 +4,6 @@ import "./styles/App.css";
 import Wallet from './Wallet';
 import WebButton from './WebButton';
 import IsConnected from './IsConnected';
-import Methods from './Methods';
 
 import { useConnectionStatus } from "@thirdweb-dev/react";
 import MiscTest from './MiscTest';
@@ -12,12 +11,6 @@ import Contracts from './Contract';
 import { useStorageUpload } from "@thirdweb-dev/react";
 
 import React, { useState } from 'react';
-
-
-
-
-
-
 
 function App(props) {
 	// const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
@@ -33,8 +26,8 @@ function App(props) {
 
 	// const contract_data = props.contract_data;
 
-	const [contract_data, setContract_data] = useState('');
-	// const [contract_data, setContract_data] = useState('0x5AfFc17a4cdAd48CB0162EAa3ED38468eB7147f8');
+	// const [contract_data, setContract_data] = useState('');
+	const [contract_data, setContract_data] = useState('0x5AfFc17a4cdAd48CB0162EAa3ED38468eB7147f8');
 
 	const uploadData = () => {
 		// Get any data that you want to upload
@@ -89,7 +82,7 @@ function App(props) {
 
 					<IsConnected contract_data={contract_data} />
 
-					<MiscTest />
+					<MiscTest contract_data={contract_data} />
 
 					<p></p>
 
@@ -105,6 +98,8 @@ function App(props) {
 					<img src={logo} className="App-logo" alt="logo" />
 
 					<p></p>
+
+					{/* < MiscTest /> */}
 
 
 					{contract_data != "" && (

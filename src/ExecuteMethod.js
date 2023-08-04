@@ -13,7 +13,7 @@ import ExecuteWrite from './ExecuteWrite';
 
 
 
-const Methods = (props) => {
+const ExecuteMethod = (props) => {
 
 	// Do something with the data...
 	// console.log(data.data);
@@ -25,7 +25,6 @@ const Methods = (props) => {
 	const readOnly = props.readOnly;
 	const loaded = props.loaded;
 	const contract_data = props.contract_data;
-
 
 	const [inputValues, setInputValues] = useState({});
 	const [showResult, setShowResult] = useState(false);
@@ -58,7 +57,7 @@ const Methods = (props) => {
 
 		setTimeout(() => {
 			setShowResult(false);
-		}, 5000); // 30 seconds (in milliseconds)
+		}, 15000); // 30 seconds (in milliseconds)
 	};
 
 	// const handleSubmit = () => {
@@ -68,13 +67,7 @@ const Methods = (props) => {
 
 	const status = useConnectionStatus();
 
-
-
-
 	if (status === "connected") {
-
-
-
 
 		return (
 			<>
@@ -118,4 +111,4 @@ const Methods = (props) => {
 	// 	</div >
 	// )
 }
-export default Methods;
+export default ExecuteMethod;

@@ -6,8 +6,6 @@ import { Web3Button } from '@thirdweb-dev/react';
 import { useConnectionStatus } from "@thirdweb-dev/react";
 
 import './styles/App.css'
-import { set } from 'zod';
-
 
 
 const getName = async (contract) => {

@@ -37,6 +37,23 @@ const ExecuteRead = (props) => {
 	else if (loadingError) {
 		// throw error;
 		// console.log(error);
+		const data = response.error;
+
+		// Define a regular expression pattern to match the words "requires X arguments"
+		const regexPattern = /requires \d+ arguments/;
+		
+		// Check if the error message matches the pattern
+		if (regexPattern.test(data)) {
+		  // Do something here, like handle the error
+		  console.log("Error: Function requires X arguments");
+		  return (
+			<code> Incorrect input </code>
+		)
+		}		
+		console.log(data);
+		return (
+			<code> Error </code>
+		)
 	}
 
 
