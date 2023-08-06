@@ -3,6 +3,7 @@ import { useChain, useConnectionStatus } from "@thirdweb-dev/react";
 import React, { useState, useEffect } from 'react';
 import "./styles/App.css";
 import { set } from "zod";
+import { is } from "@babel/types";
 
 const IsConnected = (props) => {
 	const [shouldRenderDelayed, setShouldRenderDelayed] = useState(false);
@@ -13,10 +14,10 @@ const IsConnected = (props) => {
 	const userAddress = useAddress();
 	let userShortAddress = "";
 	let contractShortAddress = "";
-	// let status = useConnectionStatus();
 	const contract = props.contract;
-	const status = props.status;
-
+	const isValidAddress = props.isValidAddress;	
+	
+	let isConnected = props.isConnected;
 	const contractAddress = props.contractAddress;
 
 	if (userAddress !== undefined) {
@@ -33,9 +34,9 @@ const IsConnected = (props) => {
 	// console.log(contract);
 
 	useEffect(() => {
-		if (status === "connected") {
+		if ( isConnected == "connected" ){
 
-			console.log(chain);
+			// console.log(chain);
 
 			setTimeout(() => {
 				setShouldRenderDelayed(true);
@@ -51,16 +52,17 @@ const IsConnected = (props) => {
 			setShouldRenderDelayed(false);
 			setShowUserData("user-data");
 		}
-	}, [status]);
+	}, [isConnected]);
 
 	useEffect(() => {
-		if (contract.isSuccess) {
+		// console.log(contract)
+		if (props.isValidAddress) {
 
 			setTimeout(() => {
 				setTimeout(() => {
 					setShowContractAddress("address-data-show");
 				}
-					, 50);
+					, 500);
 
 			}, 10);
 		} else {
@@ -72,13 +74,13 @@ const IsConnected = (props) => {
 
 	return (
 		<>
-			{status === "unknown" && <div>Loading...</div>}
-			{status === "disconnected" && (
+			{isConnected === "unknown" && <div>Loading...</div>}
+			{isConnected === "disconnected" && (
 				<div>
-					<code>ConnectionStatus: </code> {status}
+					<code>ConnectionStatus: </code> {isConnected}
 				</div>
 			)}
-			{status === "connecting" && (
+			{isConnected === "connecting" && (
 				<div>
 					<p>Connecting...</p>
 				</div>
@@ -87,11 +89,11 @@ const IsConnected = (props) => {
 
 			{chain && (
 				<div>
-					{/* <code>IsConnectedComponent: </code> {status} */}
+					{/* <code>IsConnectedComponent: </code> {isConnected} */}
 					{!notLoaded && showUserData == "user-data" && <p>Loading user address...</p>}
 					{shouldRenderDelayed && (
 						<div className={`user-data ${showUserData}`}>
-							{contractLoaded && (
+							{ contractLoaded && props.isValidAddress && (
 								<div className={`contractAddress ${showContractAddress}`}>
 									<p></p>Contract Address is
 									<code> {contractShortAddress}</code>

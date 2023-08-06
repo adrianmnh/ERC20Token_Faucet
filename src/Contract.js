@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 
 
-import { useContract, useContractRead, useContractWrite } from "@thirdweb-dev/react";
-import { SmartContract, BaseContract } from "@thirdweb-dev/react";
-import contract_abi from "./contracts/ProjectToken.json"
+// import { useContract, useContractRead, useContractWrite } from "@thirdweb-dev/react";
+// import contract_abi from "./contracts/ProjectToken.json"
 import { useConnectionStatus } from "@thirdweb-dev/react";
 import "./styles/App.css";
+import { fetchContractAbi } from "./Utils.js";
 
 import ExecuteMethod from './ExecuteMethod';
+import IsConnected from './IsConnected';
+import { P } from 'pino';
 
 
 // console.log(abi);
 
 
-let map;
 
-const setters = new Map();
+const readMap = new Map();
 
-const getters = new Map();
+const writeMap = new Map();
 
 // const execFunc = async (contract, key) => {
 // 	try {
@@ -30,91 +31,72 @@ const getters = new Map();
 // };
 
 
-const settersArray = Array.from(setters);
 
 const Contracts = (props) => {
-	const setter = props.setter;
+	const readOnly = props.readOnly;
 	const loaded = props.loaded;
+	const isConnected = props.isConnected;
+	const speed = props.speed;
 
-	const contract_data = props.contract_data;
-	const abi = useContract(contract_data).contract.abi; //JSON.parse(contract_abi);
 
-	if (abi != null) {
+	const contractAddress = props.contractAddress;
+	const contract = props.contract;
 
-		abi.forEach(element => {
-			// console.log(element);
-			if (element.type == "function") {
-				if (element.stateMutability == "view") {
-					setters.set(element.name, new Map());
-					element.inputs.forEach(input => {
-						setters.get(element.name).set(input.name, input.type);
-					});
-				} else {
-					getters.set(element.name, new Map());
-					element.inputs.forEach(input => {
-						getters.get(element.name).set(input.name, input.type);
-					});
-				}
 
-			}
-		});
+	fetchContractAbi(contract.contract.abi, readMap, writeMap);
+
+
+	const methodType = readOnly ? "Read Only" : "Write Methods";
+
+
+	const readOnlyMethods = Array.from(readMap);
+	const writeMethods = Array.from(writeMap);
+	// console.log(readOnlyMethods);
+
+	const map = readOnly ? readMap : writeMap;
+
+	// Array.from(map.keys()).map((name, index) => {
+	// 	console.log(name);
+	// 	console.log(map.get(name));
+	// 	console.log(index);
+	// });
+
+	if (isConnected === "connected") {
+
+		return (
+			<>
+
+				<div className="col-style">
+
+					<h1 className="function-type">{methodType}</h1>
+
+					{Array.from(map.keys()).map((name) => (
+
+						<div key={name} className="row-style">
+
+							{
+								<ExecuteMethod
+									key={name}
+									contractAddress={contractAddress}
+									contract={contract}
+									methodName={name}
+									methodParameters={map.get(name)}
+									readOnly={readOnly}
+									loaded={loaded}
+									isConnected={isConnected}
+									speed={speed}
+								/>
+
+							}
+						</div>
+
+					))}
+
+
+				</div>
+			</>
+		);
 	}
-
-	// console.log(useContract(contract_data));
-	const { contract, isLoading, error } = useContract(
-		contract_data,
-		"token",
-		abi
-	);
-
-	const [methodType, setMethodType] = useState(props.type);
-	// const [abi, setAbi] = useState('');
-
-
-
-	// const { data, isLoading: isNameLoading, error: nameError } = useContractRead(contract, "name");
-
-	const [type, setType] = useState('');
-
-	// const data = useContractRead(contract, "name");
-	const status = useConnectionStatus();
-	if (status === "connected") {
-		if (setter) {
-			map = setters;
-		}
-			else {
-				map = getters;
-			}
-			return (
-				<>
-					<div className="col-style">
-
-						<h1>{methodType}</h1>
-
-						{Array.from(map.keys()).map((name, index) => (
-
-							<div key={name} className="row-style">
-
-								{
-									<ExecuteMethod
-										key={name}
-										contract_data={contract_data}
-										contract={contract} name={name}
-										params={map.get(name)}
-										readOnly={true}
-										loaded={loaded}
-									/>
-
-								}
-							</div>
-
-						))}
-
-
-					</div>
-				</>
-			);
-		}
 }
 
 export default Contracts;

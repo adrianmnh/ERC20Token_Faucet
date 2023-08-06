@@ -5,7 +5,7 @@ import MiscTestChain from "./MiscTestChain.js";
 const getTokenData = async (contract) => {
 	try {
 		// const tokenName = await contract.call('name');
-		const tokenName = await contract.call('burn', [1]);
+		const tokenName = await contract.call("name", []);
 		// You can add more contract call statements here if needed.
 		return { tokenName }; // You can return an object with multiple properties if needed.
 	} catch (error) {
@@ -21,6 +21,7 @@ const handleClick = async (contract) => {
 		console.error('Error in handleClick:', error);
 	}
 };
+// console.log(handleClick);
 // const res2 = useContractRead(contract, 'name', []);
 
 const handleClick2 = async (contract) => {
@@ -32,6 +33,7 @@ const handleClick2 = async (contract) => {
 };
 
 
+var id = 0;
 
 const MiscTest = (props) => {
 
@@ -45,7 +47,8 @@ const MiscTest = (props) => {
 	const [elements, setElements] = useState([]);
 
 	const handleAddElement = () => {
-		const newElement = <div className="added-element show">New Element</div>;
+		id+=1;
+		const newElement = <div className="added-element show" key = {id}>New Element{id}</div>;
 		setElements(prevElements => [...prevElements, newElement]);
 	};
 

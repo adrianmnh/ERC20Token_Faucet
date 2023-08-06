@@ -4,13 +4,11 @@ import './styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThirdwebProvider, metamaskWallet, coinbaseWallet } from "@thirdweb-dev/react";
-import { useChain, useConnectionStatus } from "@thirdweb-dev/react";
-
-// const contract_data = "0x5AfFc17a4cdAd48CB0162EAa3ED38468eB7147f8";
-// const contract_data = "";
-
+import { useChain, useConnectionStatus, useContract } from "@thirdweb-dev/react";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 root.render(
 
 	<React.StrictMode>
@@ -40,7 +38,7 @@ root.render(
 
 		>
 
-			<App contractAddress="" />
+			<App  />
 
 		</ThirdwebProvider>
 
