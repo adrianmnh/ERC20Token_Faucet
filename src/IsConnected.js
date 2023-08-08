@@ -10,15 +10,18 @@ const IsConnected = (props) => {
 	const [notLoaded, setNotLoaded] = useState(false);
 	const [showUserData, setShowUserData] = useState("user-data");
 	const [showContractAddress, setShowContractAddress] = useState("address-data");
+	const [addressChanged, setAddressChanged] = useState(false);
 	const chain = useChain();
 	const userAddress = useAddress();
 	let userShortAddress = "";
 	let contractShortAddress = "";
 	const contract = props.contract;
-	const isValidAddress = props.isValidAddress;	
-	
+	const isValidAddress = props.isValidAddress;
+
 	let isConnected = props.isConnected;
 	const contractAddress = props.contractAddress;
+
+		
 
 	if (userAddress !== undefined) {
 
@@ -34,7 +37,7 @@ const IsConnected = (props) => {
 	// console.log(contract);
 
 	useEffect(() => {
-		if ( isConnected == "connected" ){
+		if (isConnected == "connected") {
 
 			// console.log(chain);
 
@@ -61,10 +64,8 @@ const IsConnected = (props) => {
 			setTimeout(() => {
 				setTimeout(() => {
 					setShowContractAddress("address-data-show");
-				}
-					, 500);
-
-			}, 10);
+				}, 400);
+			}, 100);
 		} else {
 			setShowContractAddress("address-data");
 		}
@@ -93,8 +94,8 @@ const IsConnected = (props) => {
 					{!notLoaded && showUserData == "user-data" && <p>Loading user address...</p>}
 					{shouldRenderDelayed && (
 						<div className={`user-data ${showUserData}`}>
-							{ contractLoaded && props.isValidAddress && (
-								<div className={`contractAddress ${showContractAddress}`}>
+							{contractLoaded && props.isValidAddress && (
+								<div className={`address-data ${showContractAddress}`}>
 									<p></p>Contract Address is
 									<code> {contractShortAddress}</code>
 								</div>

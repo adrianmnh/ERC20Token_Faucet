@@ -19,25 +19,32 @@
 .site-url {
 	font-size: 2em;
 	font-weight: 900;
-	font-stretch: ultra-expanded;
+	/* font-stretch: ultra-expanded; */
+	font-stretch: expanded;
+	margin-left: 1.5em!important;
+	margin-right: 1.5em!important;
+	width: auto;
+	/* width: 90%; */
 }
 
+.address-data,
 .user-data {
+
 	opacity: 0;
-	transition: opacity 11s ease-out;
+	/* transition: opacity 11s ease-out; */
 }
 
-.address-data {
+/* .address-data {
 	opacity: 0;
 	transition: opacity 0s ease-out;
-}
+} */
 
-
-.user-data-show,
-.address-data-show {
+.address-data-show,
+.user-data-show{
 	opacity: 1 !important;
-	transition: opacity 4s ease-in-out;
+	transition: opacity 4s ease-in;
 }
+
 
 .button-container {
 	/* display: flex; */
@@ -67,6 +74,7 @@
 
 .contract-input-field,
 .function-input-field,
+.function-input-filed-payable,
 .contract-input-button {
 	background-color: var(--background-color);
 	color: white;
@@ -155,6 +163,7 @@ button:active {
 
 .function-button,
 .function-input-field,
+.function-input-filed-payable,
 .function-output {
 	content: flex-start;
 	padding: 0.5em;
@@ -163,7 +172,8 @@ button:active {
 }
 
 .function-button,
-.function-input-field {
+.function-input-field,
+.function-input-filed-payable {
 	background-color: var(--background-color);
 	color: white;
 	border: 2px solid white;
@@ -173,22 +183,26 @@ button:active {
 	height: 100%;
 }
 
+
 .function-button {
 	min-width: 8em;
+	margin-right: .3em;
 }
 
+.function-button-payable {
+	background-color: rgba(255, 0, 0, 0.342)!important;
+}
+
+.function-input-filed-payable,
 .function-input-field {
-	width: 8em;
-	font-size: 0.9em !important;
+	width: 9.1em;
+	font-size: 0.8em !important;
 	/* margin-top: .4em; */
 	margin-right: .3em;
-	min-width: 7em;
 	border: 0.5px solid white;
+	height: 1.45em;
 }
 
-.function-button {
-	margin-right: .3em;
-}
 
 .function-output {
 	opacity: 0;
@@ -204,6 +218,7 @@ button:active {
 
 .contract-input-button {
 	border: 0;
+	margin-top: 1.5em;
 }
 
 .speed-control {
@@ -272,6 +287,7 @@ span {
 
 	.function-button,
 	.function-input-field,
+	.function-input-filed-payable,
 	.function-output {
 		font-size: 0.6em;
 	}

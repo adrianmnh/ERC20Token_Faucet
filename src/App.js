@@ -6,13 +6,12 @@ import WebButton from './WebButton';
 import IsConnected from './IsConnected';
 import { validateInputAddress } from './Utils.js';
 
-import { useConnectionStatus, useContract, isAddre } from "@thirdweb-dev/react";
+import { useConnectionStatus, useContract } from "@thirdweb-dev/react";
 import MiscTest from './MiscTest';
 import Contracts from './Contract';
 import { useStorageUpload } from "@thirdweb-dev/react";
 
 import React, { useState } from 'react';
-import { set } from 'zod';
 
 function App(props) {
 	// const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
@@ -29,7 +28,8 @@ function App(props) {
 	const [contractLoaded, setContractLoaded] = useState(false);
 	const [isValidAddress, setValidAddress] = useState(false);
 	const [inputAddress, setInputAddress] = useState('');
-
+	
+	
 	/************* For Production *************/
 	const [contractAddress, setContractAddress] = useState('');
 
@@ -39,13 +39,12 @@ function App(props) {
 	// 	setInputAddress(myDefaultAddress);
 	// 	setValidAddress(true);
 	// }
-
-	// const [topRight, setTopRight] = useState('');
+		
+		// const [topRight, setTopRight] = useState('');
 	let topRight = '';
 
 	const { mutateAsync: upload } = useStorageUpload();
-
-
+	
 	const handleLoadContractButtonClick = () => {
 		// Inside the event handler, use the setter function to update the state variable
 		if (isValidAddress) {
@@ -53,13 +52,14 @@ function App(props) {
 			// console.log("load Contract button clicked");
 		}
 	};
+	
 	const handleInputClick = () => {
 		// Inside the event handler, use the setter function to update the state variable
 		setContractAddress(myDefaultAddress);
 		setInputAddress(myDefaultAddress);
 		setValidAddress(true);
 	};
-
+	
 	const handleInputChange = (event) => {
 		setInputAddress(event.target.value);
 		let address = event.target.value.trim();
@@ -76,18 +76,18 @@ function App(props) {
 	};
 
 
-	const [speed, setSpeed] = useState(25);
+	const [speed, setSpeed] = useState(15);
+	// const [speed, setSpeed] = useState(60000);
 
 	const handleSliderChange = (event) => {
 		// const newSpeed = parseFloat(event.target.value);
 		const newSpeed = parseInt(event.target.value);
-		if (newSpeed === 65) {
-			setSpeed(60000);
-		} else {
-
+		console.log("fade time set to: ", newSpeed, " seconds")
+		if (newSpeed <= 60) {
 			setSpeed(newSpeed);
+		} else {
+			setSpeed(60000);
 		}
-		//   onChange(newSpeed);
 	};
 
 	// console.log(useConnectionStatus());
@@ -170,6 +170,7 @@ function App(props) {
 							</div>
 
 							<p></p>
+							{/* {!loaded && ( */}
 							{loaded && (
 								<div className="methods">
 									<div className="speed-control">
@@ -177,16 +178,14 @@ function App(props) {
 										<input
 											type="range"
 											id="speedSlider"
-											// min="10"
 											min="5"
 											max="65"
-											// step="10"
 											step="5"
-											value={speed}
+											value={ speed }
 											onChange={handleSliderChange}
 										/>
 										{/* <span>{speed.toFixed(1)} seconds</span> */}
-										<span>{speed == 60000 ? "∞" : speed + " seconds"} </span>
+										<span>{speed == 60000 ? " ∞ " : speed + "s"} </span>
 									</div>
 									<div className="methods-container">
 

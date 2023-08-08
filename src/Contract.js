@@ -3,13 +3,12 @@ import React, { useState } from 'react';
 
 // import { useContract, useContractRead, useContractWrite } from "@thirdweb-dev/react";
 // import contract_abi from "./contracts/ProjectToken.json"
-import { useConnectionStatus } from "@thirdweb-dev/react";
+import { useAddress } from "@thirdweb-dev/react";
 import "./styles/App.css";
 import { fetchContractAbi } from "./Utils.js";
 
 import ExecuteMethod from './ExecuteMethod';
 import IsConnected from './IsConnected';
-import { P } from 'pino';
 
 
 // console.log(abi);
@@ -19,6 +18,8 @@ import { P } from 'pino';
 const readMap = new Map();
 
 const writeMap = new Map();
+
+const payables = new Set();
 
 // const execFunc = async (contract, key) => {
 // 	try {
@@ -37,13 +38,14 @@ const Contracts = (props) => {
 	const loaded = props.loaded;
 	const isConnected = props.isConnected;
 	const speed = props.speed;
+	const userAddress = useAddress();
 
 
 	const contractAddress = props.contractAddress;
 	const contract = props.contract;
 
 
-	fetchContractAbi(contract.contract.abi, readMap, writeMap);
+	fetchContractAbi(contract.contract.abi, readMap, writeMap, payables);
 
 
 	const methodType = readOnly ? "Read Only" : "Write Methods";
@@ -61,6 +63,7 @@ const Contracts = (props) => {
 	// 	console.log(index);
 	// });
 
+
 	if (isConnected === "connected") {
 
 		return (
@@ -77,6 +80,7 @@ const Contracts = (props) => {
 							{
 								<ExecuteMethod
 									key={name}
+									userAddress={userAddress}
 									contractAddress={contractAddress}
 									contract={contract}
 									methodName={name}
@@ -85,6 +89,7 @@ const Contracts = (props) => {
 									loaded={loaded}
 									isConnected={isConnected}
 									speed={speed}
+									payables={payables}
 								/>
 
 							}

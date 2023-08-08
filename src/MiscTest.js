@@ -24,9 +24,19 @@ const handleClick = async (contract) => {
 // console.log(handleClick);
 // const res2 = useContractRead(contract, 'name', []);
 
-const handleClick2 = async (contract) => {
+const handleClickTestCall = async (contract) => {
 	try {
-		console.log(contract);
+		// console.log(contract);
+		// const data = await contract.call("myBalance", []);
+		// console.log(data);
+		// const data_overrides = await contract.call("balanceOf", ["0x1240524FEeB74B9c1A00C41d08416B9eA8002A69"], {from: "0x1240524FEeB74B9c1A00C41d08416B9eA8002A69"});
+		// const data_overrides = await contract.call("balanceOf", ["0x1240524FEeB74B9c1A00C41d08416B9eA8002A69"], {from: "0xd5531f094499E56533F5cA3c2bCCC307d72e17aB"});
+		// const data_overrides = await contract.call("balanceOf", ["0xd5531f094499E56533F5cA3c2bCCC307d72e17aB"], {from: "0x1240524FEeB74B9c1A00C41d08416B9eA8002A69"});
+		// const data_overrides = await contract.call("balanceOf", ["0xd5531f094499E56533F5cA3c2bCCC307d72e17aB"]);
+		const data_overrides = await contract.call("myBalance", [], {from: "0x1240524FEeB74B9c1A00C41d08416B9eA8002A69"});
+		// const data_overrides = await contract.call("balanceOf", ["0x1240524FEeB74B9c1A00C41d08416B9eA8002A69"], {gasLimit: 1000000000});
+		// const data_overrides = await contract.call("balanceOf", ["0x1240524FEeB74B9c1A00C41d08416B9eA8002A69"] );
+		console.log(data_overrides.toString());
 	} catch (error) {
 		console.error('Error in handleClick:', error);
 	}
@@ -59,15 +69,15 @@ const MiscTest = (props) => {
 			<div>
 
 				<div>
-					<button onClick={handleAddElement}>Add Element</button>
+					{/* <button onClick={handleAddElement}>Add Element</button> */}
 					<div className="container">
 						{elements}
 					</div>
 				</div>
 
-				<button onClick={() => handleClick(contract)}>contract.call(burn(1))</button>
-				{/* <button onClick={() => handleClick2(contract)}>contract.call(burn(1))</button> */}
-				<MiscTestChain contract={contract} />
+				{/* <button onClick={() => handleClick(contract)}>contract.call(burn(1))</button> */}
+				<button onClick={() => handleClickTestCall(contract)}>contract call  myBalance</button>
+				{/* <MiscTestChain contract={contract} /> */}
 			</div>
 		)
 	}
