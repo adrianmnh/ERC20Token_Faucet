@@ -7,7 +7,7 @@ import { SmartContract, BaseContract } from "@thirdweb-dev/react";
 import contract_abi from "./contracts/ProjectToken.json"
 import { useConnectionStatus } from "@thirdweb-dev/react";
 
-import "./styles/App.css";
+import "../styles/App.css";
 
 
 const ExecuteRead = (props) => {

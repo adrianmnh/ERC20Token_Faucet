@@ -1,0 +1,59 @@
+.navbar {
+	margin-top: 1em;
+	display: flex;
+	/* flex-direction: row; */
+	/* justify-content: center; */
+	/* background-color: #333; */
+	/* padding: 10px; */
+}
+
+.navbar-list {
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	/* gap: 2px; */
+}
+
+.navbar-item {
+	flex: 1;
+}
+
+.navbar-link {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',    monospace;
+	font-size: 1.3em;
+	text-decoration: none;
+	color: white;
+	padding: 2em 4em;
+	margin: 0em 1em;
+	transition: background-color 0.3s;
+	/* border-radius: 40px; */
+}
+
+.navbar-link:hover {
+	/* background-color: var(--main-color); */
+	color: var(--main-color);
+	font-weight: bolder;
+	transition: color .5s ease-in-out, font-weight .5s ease-in-out;
+	/* color: white; */
+
+
+}
+
+/* Highlight the current page link */
+.navbar-link.active {
+	background-color: gold;
+	color: black;
+
+}
+
+@media screen and (max-width: 810px) {
+
+	.navbar-link {
+		padding: 2em 2.7em;
+	}
+
+}
+	

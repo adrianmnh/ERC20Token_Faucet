@@ -1,9 +1,9 @@
-import { useAddress } from "@thirdweb-dev/react";
-import { useChain, useConnectionStatus } from "@thirdweb-dev/react";
 import React, { useState, useEffect } from 'react';
-import "./styles/App.css";
-import { set } from "zod";
-import { is } from "@babel/types";
+
+import "../styles/App.css";
+
+import { useChain, useConnectionStatus, useAddress } from "@thirdweb-dev/react";
+
 
 const IsConnected = (props) => {
 	const [shouldRenderDelayed, setShouldRenderDelayed] = useState(false);
@@ -11,7 +11,7 @@ const IsConnected = (props) => {
 	const [showUserData, setShowUserData] = useState("user-data");
 	const [showContractAddress, setShowContractAddress] = useState("address-data");
 	const [addressChanged, setAddressChanged] = useState(false);
-	const chain = useChain();
+	// const chain = useChain();
 	const userAddress = useAddress();
 	let userShortAddress = "";
 	let contractShortAddress = "";
@@ -20,6 +20,8 @@ const IsConnected = (props) => {
 
 	let isConnected = props.isConnected;
 	const contractAddress = props.contractAddress;
+
+	const currentChain = props.currentChain;
 
 		
 
@@ -88,7 +90,7 @@ const IsConnected = (props) => {
 			)
 			}
 
-			{chain && (
+			{currentChain != undefined && (
 				<div>
 					{/* <code>IsConnectedComponent: </code> {isConnected} */}
 					{!notLoaded && showUserData == "user-data" && <p>Loading user address...</p>}
@@ -104,7 +106,7 @@ const IsConnected = (props) => {
 							<code> {userShortAddress}</code>
 							<p></p>Connected to
 							{/* <code> {chain.name}</code> */}
-							<code> {chain.title}</code>
+							<code className="chain-name"> {currentChain.name}</code>
 						</div>
 
 					)}

@@ -1,17 +1,26 @@
+import React, { useState } from 'react';
 
 import logo from './logo.svg';
 import "./styles/App.css";
-import Wallet from './Wallet';
-import WebButton from './WebButton';
-import IsConnected from './IsConnected';
 import { validateInputAddress } from './Utils.js';
 
-import { useConnectionStatus, useContract } from "@thirdweb-dev/react";
-import MiscTest from './MiscTest';
-import Contracts from './Contract';
-import { useStorageUpload } from "@thirdweb-dev/react";
+import Wallet from './Components/Wallet';
+import IsConnected from './Components/IsConnected';
+import MiscTest from './TestComponents/MiscTest';
+import LoadedContract from './Components/LoadedContract';
+import Modal from './Components/Modal';
+import MainComponent from './Components/MainComponent';
 
-import React, { useState } from 'react';
+import { useConnectionStatus, useContract, useChain, useSwitchChain } from "@thirdweb-dev/react";
+import { Ethereum, Mumbai } from '@thirdweb-dev/chains';
+import { set } from 'zod';
+import { ConnectWallet } from "@thirdweb-dev/react";
+
+
+const { ethers } = require('ethers');
+// import { ethers } from "ethers";
+const provider = new ethers.providers.Web3Provider(window.ethereum)
+
 
 function App(props) {
 	// const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
@@ -22,14 +31,27 @@ function App(props) {
 	// unknown connecting connected disconnected
 	const isConnected = useConnectionStatus();
 
+	// useSwitchChain(props.network);
 
-	const myDefaultAddress = "0x5AfFc17a4cdAd48CB0162EAa3ED38468eB7147f8";
+
+	// const myDefaultAddress = "0x5AfFc17a4cdAd48CB0162EAa3ED38468eB7147f8";
+	const myDefaultAddress = "0xA470437D05a58568e69A7D81B32B917C015A9AaF";
 	const [loaded, setLoaded] = useState(false);
 	const [contractLoaded, setContractLoaded] = useState(false);
-	const [isValidAddress, setValidAddress] = useState(false);
+	const [isValidAddress, setValidAddress] = useState(true);
 	const [inputAddress, setInputAddress] = useState('');
-	
-	
+
+	const [networkReady, setNetworkReady] = useState(false);
+	const [waiting, setWaiting] = useState(false);
+
+	const currentChain = useChain();
+
+	const network = props.network;
+
+	const ready = props.ready;
+
+	// let inputAddress = '';
+
 	/************* For Production *************/
 	const [contractAddress, setContractAddress] = useState('');
 
@@ -39,68 +61,100 @@ function App(props) {
 	// 	setInputAddress(myDefaultAddress);
 	// 	setValidAddress(true);
 	// }
-		
-		// const [topRight, setTopRight] = useState('');
+
+	// const [topRight, setTopRight] = useState('');
+	// if(network != useChain()){
+	const switchNetworkFrom = useSwitchChain();
+
+	function changeBackground(){
+		if(sessionStorage.getItem('colour')){
+			document.body.style.backgroundColor = sessionStorage.getItem('colour');
+		} else {
+			document.body.style.backgroundColor = '#282c34';
+			sessionStorage.setItem('colour', '#282c34');
+		}
+		window.location.reload(false);
+
+	}
+
+	const switchNetwork = async () => {
+		console.log("switchNetwork");
+		await switchNetworkFrom(network);
+
+		// changeBackground();
+		window.location.reload(false);
+		console.log(network);
+
+	};
+
+	if (currentChain != undefined) {
+		console.log(currentChain);
+	}
+
+
 	let topRight = '';
 
-	const { mutateAsync: upload } = useStorageUpload();
-	
-	const handleLoadContractButtonClick = () => {
-		// Inside the event handler, use the setter function to update the state variable
-		if (isValidAddress) {
-			setLoaded(true);
-			// console.log("load Contract button clicked");
-		}
+	const addressChecker = async (address) => {
+		// console.log("addressChecker: ", address);
+		try {
+			const code = await provider.getCode(address);
+			if (code !== '0x') return true;
+		} catch (error) { }
+		// if it comes here, then it's not a contract.
+		return false;
 	};
-	
-	const handleInputClick = () => {
+
+	const contract = useContract(contractAddress);
+
+	const handleInputClick = async () => {
 		// Inside the event handler, use the setter function to update the state variable
-		setContractAddress(myDefaultAddress);
+
+		setValidAddress(false);
+		setContractAddress('');
+		setLoaded(false);
+
 		setInputAddress(myDefaultAddress);
-		setValidAddress(true);
-	};
-	
-	const handleInputChange = (event) => {
-		setInputAddress(event.target.value);
-		let address = event.target.value.trim();
-		// address = address.trim();
-		if (validateInputAddress(address)) {
-			console.log("valid address");
-			setContractAddress(address);
+
+		const addressCheck = await addressChecker(myDefaultAddress);
+		console.log("Valid Address?: ", addressCheck);
+		if (addressCheck) {
+			setContractAddress(myDefaultAddress);
 			setValidAddress(true);
-		}
-		else {
+			// console.log("valid address from CLICK");
+		} else {
 			setValidAddress(false);
 			setContractAddress('');
 		}
 	};
 
+	const handleInputChange = async (event) => {
 
-	const [speed, setSpeed] = useState(15);
-	// const [speed, setSpeed] = useState(60000);
+		setValidAddress(false);
+		setContractAddress('');
+		setLoaded(false);
 
-	const handleSliderChange = (event) => {
-		// const newSpeed = parseFloat(event.target.value);
-		const newSpeed = parseInt(event.target.value);
-		console.log("fade time set to: ", newSpeed, " seconds")
-		if (newSpeed <= 60) {
-			setSpeed(newSpeed);
-		} else {
-			setSpeed(60000);
+		let address = event.target.value.trim();
+
+		setInputAddress(address);
+
+		if (validateInputAddress(address)) {
+			const addressCheck = await addressChecker(address);
+			console.log(address, " - Valid Input Address?: ", addressCheck);
+			if (addressCheck) {
+				// console.log("valid address from input change");
+				setContractAddress(address);
+				setValidAddress(true);
+			}
 		}
 	};
 
-	// console.log(useConnectionStatus());
-
-	const contract = useContract(contractAddress);
 
 	if (contract.isSuccess && !contractLoaded) {
 		// console.log(contract);
 		setContractLoaded(true);
 		setContractAddress(contract.data.contractWrapper.writeContract.address);
 	} else {
-		// console.log('ZOD??');
-		// console.log(contract);
+
 	}
 
 	if (isConnected == "connected") {
@@ -112,6 +166,10 @@ function App(props) {
 		if (loaded) setLoaded(false);
 	}
 
+	console.log(isConnected);
+	console.log(currentChain);
+	console.log(network);
+
 
 	return (
 
@@ -120,96 +178,75 @@ function App(props) {
 			<div className="App">
 				<header className="App-header">
 
-					<p></p>
-					<p></p>
-					<p></p>
-					<button className="contract-input-button" onClick={handleInputClick}>Use My ERC-20 Token contract: </button>
-					<code> {myDefaultAddress} </code>
-					<p></p>
-
-					{/* <div className="contract-input-container"> */}
-					<input className="contract-input-field" type="text" value={inputAddress} onChange={handleInputChange} placeholder="Enter contract address" />
-					<code>{!isValidAddress && inputAddress != "" &&  "Not a valid address"}</code>
-					{/* </div> */}
-					<p></p>
-					<p></p>
-
-					<code className="site-url" > https://erc.adriannyc.dev </code>
-					<p></p>
 
 
-					<IsConnected contractAddress={contractAddress} contract={contract} isConnected={isConnected} isValidAddress={isValidAddress} />
+					{currentChain != undefined &&
 
 
-					{/* <MiscTest contractAddress={contractAddress} /> */}
-
-					<p></p>
-
-
-					<div className={`wallet-container ${topRight}`}>
-						<p></p>
-						<Wallet />
-						<p></p>
-					</div>
-
-
-					<img src={logo} className="App-logo" alt="logo" />
-
-					<p></p>
-
-					{/* < MiscTest /> */}
-
-
-					{isValidAddress && (
-
-						<div>
-
-
-							< div onClick={handleLoadContractButtonClick} style={{ cursor: 'pointer' }} >
-								<WebButton contractAddress={contractAddress} contract={contract} />
-							</div>
+						<>
 
 							<p></p>
-							{/* {!loaded && ( */}
-							{loaded && (
-								<div className="methods">
-									<div className="speed-control">
-										<label htmlFor="speedSlider">fade time:</label>
-										<input
-											type="range"
-											id="speedSlider"
-											min="5"
-											max="65"
-											step="5"
-											value={ speed }
-											onChange={handleSliderChange}
-										/>
-										{/* <span>{speed.toFixed(1)} seconds</span> */}
-										<span>{speed == 60000 ? " ∞ " : speed + "s"} </span>
-									</div>
-									<div className="methods-container">
-
-
-										<div className="left">
-											<Contracts contract={contract} readOnly={true} loaded={loaded} contractAddress={contractAddress} isConnected={isConnected} speed={speed} />
-										</div>
-										<div className="right">
-											<Contracts contract={contract} readOnly={false} loaded={loaded} contractAddress={contractAddress} isConnected={isConnected} speed={speed}/>
-										</div>
-
-									</div>
-								</div>
-							)
-							}
+							<p></p>
 
 							<p></p>
+							<h1>Smart Contract Reader</h1>
+							{network == currentChain.chainId && (
+								<>
+
+									<p></p>
+									{network == 80001 && 
+									<>
+									<button className="contract-input-button" onClick={handleInputClick}>Use My ERC-20 Token contract: </button>
+									<code> {myDefaultAddress} </code>
+									<p></p>
+									</>
+								}
+
+									<input className="contract-input-field" type="text" value={inputAddress} onChange={handleInputChange} placeholder="Enter contract address" />
+									<code>{!isValidAddress && inputAddress.length > 0 && inputAddress.length != 42 && "Not a valid address"}</code>
+									<code>{!isValidAddress && inputAddress.length == 42 && "Not valid, are you on the right Network?"}</code>
+								</>
+							)}
+						</>
+
+					}
+
+					<div>
+						<p></p>
+						<p></p>
+						<code className="site-url" > https://erc.adriannyc.dev </code>
+						<p></p>
+
+						<IsConnected contractAddress={contractAddress} contract={contract} isConnected={isConnected} isValidAddress={isValidAddress} currentChain={currentChain} />
+
+						<p></p>
+
+
+						<div className={`wallet-container ${topRight}`}>
+							{/* <div className={`wallet-container`}> */}
+							<p></p>
+							<Wallet />
 							<p></p>
 						</div>
 
-					)}
+						<img src={logo} className="App-logo" alt="logo" />
 
-					<p></p>
-					<p></p>
+
+
+						<p></p>
+
+						{currentChain != undefined && isConnected == "connected" && network != currentChain.chainId &&
+							<button className='switch-network-button' onClick={switchNetwork}>Switch to {network==80001? "Mumbai Network" : "Ethereum Network"}</button>
+						}
+
+						<MainComponent contractAddress={contractAddress} contract={contract} isConnected={isConnected} isValidAddress={isValidAddress} />
+
+
+
+
+						<p></p>
+						<p></p>
+					</div>
 				</header>
 			</div >
 

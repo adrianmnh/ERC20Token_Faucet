@@ -45,6 +45,11 @@
 	transition: opacity 4s ease-in;
 }
 
+.chain-name{
+	font-size: 1.2em;
+	font-weight: 600;
+}
+
 
 .button-container {
 	/* display: flex; */
@@ -75,7 +80,8 @@
 .contract-input-field,
 .function-input-field,
 .function-input-filed-payable,
-.contract-input-button {
+.contract-input-button,
+.switch-network-button {
 	background-color: var(--background-color);
 	color: white;
 	border: 2px solid white;
@@ -84,9 +90,16 @@
 	font-size: 1em !important;
 }
 
+.switch-network-button {
+	padding: 1.7em!important;
+	border-radius: 25px!important;
+}
+
 .contract-input-field {
-	margin-top: -1.1em;
-	/* width: 100%; */
+	margin-top: -1.3em;
+	margin-bottom: .5em;
+	width: 26em;
+	text-align: center;
 }
 
 .App-header {
@@ -102,7 +115,8 @@
 }
 
 .contract-input-button:hover,
-.function-button:hover {
+.function-button:hover,
+.switch-network-button:hover {
 	background-color: var(--accent-color) !important;
 	color: black !important;
 }
@@ -113,9 +127,9 @@ button:active {
 }
 
 .top-right {
-	position: absolute !important;
-	top: 0.5em;
-	right: 1.5em;
+	position: absolute;
+	top: -.5em;
+	right: 0em;
 }
 
 .wallet-container {
@@ -265,6 +279,14 @@ span {
 
 @media screen and (max-width: 815px) {
 
+	.App-header {
+		font-size: .8em!important;
+	}
+
+	.function-button{
+		font-size: .95em!important;
+	}
+
 	.function-button:focus,
 	.contract-input-button:active,
 	.contract-input-button:focus,
@@ -323,18 +345,25 @@ span {
 	}
 
 	.top-right {
-		position: absolute;
-		top: 0.25em;
-		right: 1.5em;
+		/* right: 1em; */
 	}
 
 	.wallet-container {
 		width: auto;
 	}
 
-	.App-header {
-		font-size: calc(10px + 0.8vmin);
+	.user-data-show {
+		font-size: 1em!important;
 	}
+
+/* 
+	.user-data-show {
+		font-size: 0.82em;
+	}
+
+	.site-url {
+		font-size: 1.5em;
+	} */
 }
 
 @media screen and (max-width: 1215px) {

@@ -1,10 +1,10 @@
-import './Contract.js';
-
 import React, { useState } from 'react';
-import { Web3Button } from '@thirdweb-dev/react';
-import { useConnectionStatus } from "@thirdweb-dev/react";
 
-import './styles/App.css'
+import './LoadedContract.js';
+import '../styles/App.css'
+
+import { Web3Button, useConnectionStatus } from "@thirdweb-dev/react";
+
 
 
 const getName = async (contract) => {
@@ -40,7 +40,7 @@ const getSymbol = async (contract) => {
 
 const getSupply = async (contract) => {
 	try {
-		const success = await contract.call('availableSupply');
+		const success = await contract.call('circulatingSupply');
 		return success;
 	} catch (error) {
 		console.error('Error calling availableSupply:', error.message);
@@ -67,6 +67,7 @@ const getTokenData = async (contract) => {
 	}
 };
 
+
 const WebButton = (props) => {
 	const [isDisabled, setIsDisabled] = useState(false);
 	const [buttonText, setButtonText] = useState('Load Contract');
@@ -74,11 +75,15 @@ const WebButton = (props) => {
 	const [symbolText, setSymbolText] = useState('');
 	const [decimalText, setDecimalText] = useState('0');
 	const [displayData, setDisplayData] = useState(false);
-
+	
 	const contractAddress = props.contractAddress;
+	const loaded = props.loaded;
 	const [contract, setContract] = useState(null);
-
-	// console.log(contract_data);
+	
+	if(!loaded && buttonText !== 'Load Contract'){
+		setButtonText('Load Contract');
+		setDisplayData(false);
+	}
 
 
 	const handleSuccess = async (result) => {
@@ -124,13 +129,13 @@ const WebButton = (props) => {
 						// currentChain = {useConnectionStatus()._chainId}						
 						contractAddress={contractAddress}
 						className="load-button"
-						// action={(contract) => getTokenData(contract)}
-						action={(contract) => console.log("methods loaded")}
+						action={(contract) => getTokenData(contract)}
+						// action={(contract) => console.log("methods loaded")}
 						onSuccess={handleSuccess}
 						onError={handleError}
 						isDisabled={isDisabled}
 						onSubmit={(action) => {
-							console.log('submitted');
+							// console.log('submitted');
 						}}
 						theme="dark"
 					>
@@ -141,7 +146,7 @@ const WebButton = (props) => {
 					{displayData && (
 
 						<div className="button-token-data">
-							{supplyText && <div>Supply: {supplyText}</div>}
+							{supplyText && <div>Circulating Supply: {supplyText}</div>}
 							{symbolText && <div>Symbol: {symbolText}</div>}
 							{decimalText && <div>Decimals: {decimalText}</div>}
 

@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 
 
-// import { useContract, useContractRead, useContractWrite } from "@thirdweb-dev/react";
-// import contract_abi from "./contracts/ProjectToken.json"
+
 import { useAddress } from "@thirdweb-dev/react";
-import "./styles/App.css";
-import { fetchContractAbi } from "./Utils.js";
+import "../styles/App.css";
+import { fetchContractAbi } from "../Utils.js";
 
 import ExecuteMethod from './ExecuteMethod';
 import IsConnected from './IsConnected';
-
-
-// console.log(abi);
 
 
 
@@ -33,30 +29,41 @@ const payables = new Set();
 
 
 
-const Contracts = (props) => {
+const LoadedContract = (props) => {
 	const readOnly = props.readOnly;
 	const loaded = props.loaded;
 	const isConnected = props.isConnected;
 	const speed = props.speed;
 	const userAddress = useAddress();
 
-
 	const contractAddress = props.contractAddress;
 	const contract = props.contract;
+	const [currentContractAddress, setCurrentContractAddress] = useState(""); 
 
-
-	fetchContractAbi(contract.contract.abi, readMap, writeMap, payables);
-
-
+	// console.log("Contract Address: " + contractAddress);	
+	
 	const methodType = readOnly ? "Read Only" : "Write Methods";
-
-
+	
+	
 	const readOnlyMethods = Array.from(readMap);
 	const writeMethods = Array.from(writeMap);
 	// console.log(readOnlyMethods);
-
+	
 	const map = readOnly ? readMap : writeMap;
-
+	
+	if(loaded){
+		if(currentContractAddress !== contractAddress){
+			setCurrentContractAddress(contractAddress);
+			readMap.clear();
+			writeMap.clear();
+			map.clear();
+			fetchContractAbi(contract.contract.abi, readMap, writeMap, payables);
+		}
+	} else {
+		readMap.clear();
+		writeMap.clear();
+		map.clear();
+	}
 	// Array.from(map.keys()).map((name, index) => {
 	// 	console.log(name);
 	// 	console.log(map.get(name));
@@ -81,7 +88,7 @@ const Contracts = (props) => {
 								<ExecuteMethod
 									key={name}
 									userAddress={userAddress}
-									contractAddress={contractAddress}
+									contractAddress={currentContractAddress}
 									contract={contract}
 									methodName={name}
 									methodParameters={map.get(name)}
@@ -104,7 +111,7 @@ const Contracts = (props) => {
 	}
 }
 
-export default Contracts;
+export default LoadedContract;
 
 
 

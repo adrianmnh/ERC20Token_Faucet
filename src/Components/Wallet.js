@@ -1,6 +1,6 @@
 import { ConnectWallet } from "@thirdweb-dev/react";
 
-import "./styles/Wallet.css";
+import "../styles/Wallet.css";
 
 // import { useMetamask } from "@thirdweb-dev/react";
 // import { Goerli } from '@thirdweb-dev/chains';

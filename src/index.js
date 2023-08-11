@@ -1,48 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
-import App from './App';
+
+
 import reportWebVitals from './reportWebVitals';
 import { ThirdwebProvider, metamaskWallet, coinbaseWallet } from "@thirdweb-dev/react";
-import { useChain, useConnectionStatus, useContract } from "@thirdweb-dev/react";
+
+import AppRouter from './AppRouter.js';
+import { BrowserRouter } from "react-router-dom";
+// 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
+
 root.render(
 
-	<React.StrictMode>
+	<React.StrictMode >
+		<>
 
 
 
-		<ThirdwebProvider
+			<div className="App">
+				<header className="App-header">
 
-			// autoConnect={true}
-			autoConnect={true}
+					{/* <NetworkSelect />
+					 */}
 
+					<BrowserRouter>
 
-			// activeChain="goerli" 
-			activeChain="mumbai"
-			clientId="23791635ed1c38db280bf3c0c0f04b68"
-			// authConfig={{
-			// 	authUrl: "/api/auth",
-			// 	domain: "https://example.com",
-			//   }}
-			dAppMeta={{
-				name: "Adrian App",
-				description: "ERC20 Token Faucet on Test Network",
-				logoUrl: "https://example.com/logo.png",
-				url: "https://erc.adriannyc.dev",
-			}}
+						<AppRouter />
 
+					</BrowserRouter>
 
-		>
-
-			<App  />
-
-		</ThirdwebProvider>
-
-
+				</header>
+			</div>
+		</>
 	</React.StrictMode >
 );
 

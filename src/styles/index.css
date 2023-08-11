@@ -8,6 +8,8 @@
 
 	--accent-color: #9AD1D4;
 
+	background-color: var(--background-color);
+
 }
 
 
@@ -19,6 +21,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: var(--background-color);
 }
 
 code {

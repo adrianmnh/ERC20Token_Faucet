@@ -2,13 +2,11 @@
 
 import React, { useState } from 'react';
 
+import { processFunctionOutput, processFunctionError, processParameterPlaceHolder, validate, paramProcess} from '../Utils';
+import "../styles/App.css";
 
-import { useContract, useContractRead, useContractWrite, useBalance} from "@thirdweb-dev/react";
-import { SmartContract, BaseContract } from "@thirdweb-dev/react";
-import contract_abi from "./contracts/ProjectToken.json"
+// import { useContract, useContractRead, useContractWrite, useBalance} from "@thirdweb-dev/react";
 import { useConnectionStatus, useAddress } from "@thirdweb-dev/react";
-import "./styles/App.css";
-import { processFunctionOutput, processFunctionError, processParameterPlaceHolder, validate, paramProcess} from './Utils';
 
 
 const ExecuteMethod = (props) => {
