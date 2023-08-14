@@ -1,7 +1,7 @@
 {
-  "name": "erc20-faucet",
+  "name": "Smart Contract Reader for Ethereum",
   "version": "0.1.0",
-  "homepage": "http://erc.adriannyc.dev",
+  "homepage": "https://erc.adriannyc.dev",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",

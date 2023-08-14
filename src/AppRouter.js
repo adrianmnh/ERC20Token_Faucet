@@ -17,34 +17,13 @@ export default function AppRouter() {
 
 				<Route path="/" element={<Layout />}>
 					<Route index element={<MumbaiTestnet />} />
-					{/* <Route path="mumbai" element={<MumbaiTestnet />} /> */}
-					<Route path="ethereum" element={<EthereumMainnet />} />
+					<Route path="/ethereum" element={<EthereumMainnet />} />
 					<Route path="*" element={<Navigate to='/' />} />
 				</Route>
 			</Routes>
 		</ThirdwebProvider >
 	);
 }
-
-		{/* </div>
-		<div>
-		<nav>
-			<ul>
-				<li>
-					<Link to="/">MumbaiTestnet</Link>
-				</li>
-
-				<li>
-					<a href="/ethereum">EthereumMainnet</a>
-				</li>
-
-			</ul>
-		</nav>
-
-		<hr />
-
-		<Outlet />
-	</div> */}
 
 function Layout() {
   return (
@@ -58,6 +37,7 @@ function Layout() {
             </Link>
           </li>
           <li className="navbar-item">
+			{/* <a href="/ethereum" className="navbar-link" activeClassName="active">Ethereum Mainnet</a> */}
             <Link to="/ethereum" className="navbar-link" activeClassName="active">
               Ethereum Mainnet
             </Link>
@@ -87,8 +67,8 @@ function MumbaiTestnet() {
 				supportedChains={[Mumbai, Ethereum]}
 				clientId="23791635ed1c38db280bf3c0c0f04b68"
 				dAppMeta={{
-					name: "Adrian App",
-					description: "ERC20 Token Faucet on Test Network",
+					name: "Smart Contract Reader for Mumbai Testnet - by Adrian Noa",
+					description: "Gain insights into contract data, transactions, and more with this intuitive tool. Discover the power of blockchain technology in action as you navigate and interact with Ethereum's intricate network of contracts.",
 					url: "https://erc.adriannyc.dev",
 				}}
 			>
@@ -109,8 +89,8 @@ function EthereumMainnet() {
 				supportedChains={[Mumbai, Ethereum]}
 				clientId="23791635ed1c38db280bf3c0c0f04b68"
 				dAppMeta={{
-					name: "Adrian App",
-					description: "ERC20 Token Faucet on Test Network",
+					name: "Smart Contract Reader for Ethereum Mainnet - by Adrian Noa",
+					description: "Gain insights into contract data, transactions, and more with this intuitive tool. Discover the power of blockchain technology in action as you navigate and interact with Ethereum's intricate network of contracts.",
 					url: "https://erc.adriannyc.dev",
 				}}
 			>
