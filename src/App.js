@@ -13,16 +13,12 @@ import MainComponent from './Components/MainComponent';
 
 import { useConnectionStatus, useContract, useChain, useSwitchChain } from "@thirdweb-dev/react";
 import { Ethereum, Mumbai } from '@thirdweb-dev/chains';
-import { set } from 'zod';
 import { ConnectWallet } from "@thirdweb-dev/react";
-
-
-const { ethers } = require('ethers');
-// import { ethers } from "ethers";
-const provider = new ethers.providers.Web3Provider(window.ethereum)
-
-
-function App(props) {
+   
+  const { ethers } = require('ethers');
+  const provider = new ethers.providers.Web3Provider(window.ethereum)
+   
+  function App(props) {
 	// const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 	// const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
 	// console.log("vw: ", vw);
