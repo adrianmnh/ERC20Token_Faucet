@@ -3,35 +3,39 @@ import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 
 import reportWebVitals from './reportWebVitals';
-import { ThirdwebProvider, metamaskWallet, coinbaseWallet } from "@thirdweb-dev/react";
+import { ThirdwebProvider } from "@thirdweb-dev/react";
 
 import AppRouter from './AppRouter.js';
 import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-root.render(
+try {
 
-	<React.StrictMode >
-		<>
+	root.render(
+	
+		<React.StrictMode >
+			<>
+	
+				<div className="App">
+					<header className="App-header">
 
-			<div className="App">
-				<header className="App-header">
+	
+						<BrowserRouter>
+	
+							<AppRouter />
+	
+						</BrowserRouter>
+	
+					</header>
+				</div>
+			</>
+		</React.StrictMode >
+	);
+} catch (e) {
+	console.log(e);
+}
 
-					{/* <NetworkSelect />
-					 */}
-
-					<BrowserRouter>
-
-						<AppRouter />
-
-					</BrowserRouter>
-
-				</header>
-			</div>
-		</>
-	</React.StrictMode >
-);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

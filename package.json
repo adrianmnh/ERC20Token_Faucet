@@ -1,6 +1,6 @@
 {
   "name": "Smart Contract Reader for Ethereum",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "homepage": "https://erc.adriannyc.dev",
   "private": true,
   "dependencies": {
@@ -14,7 +14,16 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+		"url": "latest",
+    "http": "npm:http-browserify",
+    "https": "npm:https-browserify",
+    "zlib": "npm:browserify-zlib",
+    "http-browserify": "latest",
+    "https-browserify": "latest",
+    "browserify-zlib": "latest",
+    "assert": "^2.0.0",
+    "stream": "^0.0.2"
   },
   "scripts": {
     "predeploy": "npm run build",

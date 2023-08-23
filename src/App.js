@@ -14,15 +14,23 @@ import MainComponent from './Components/MainComponent';
 import { useConnectionStatus, useContract, useChain, useSwitchChain } from "@thirdweb-dev/react";
 import { Ethereum, Mumbai } from '@thirdweb-dev/chains';
 import { ConnectWallet } from "@thirdweb-dev/react";
-   
-  const { ethers } = require('ethers');
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-   
-  function App(props) {
-	// const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-	// const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-	// console.log("vw: ", vw);
-	// console.log("vh: ", vh);
+
+const { ethers } = require('ethers');
+
+
+
+function App(props) {
+	const [hasMetamask, setHasMetamask] = useState(true);
+
+	let provider;
+	
+	try {
+		provider = new ethers.providers.Web3Provider(window.ethereum);
+	} catch (error) {
+		console.log(error);
+		if(hasMetamask)
+		setHasMetamask(false);
+	}
 
 	// unknown connecting connected disconnected
 	const isConnected = useConnectionStatus();
@@ -62,8 +70,8 @@ import { ConnectWallet } from "@thirdweb-dev/react";
 	// if(network != useChain()){
 	const switchNetworkFrom = useSwitchChain();
 
-	function changeBackground(){
-		if(sessionStorage.getItem('colour')){
+	function changeBackground() {
+		if (sessionStorage.getItem('colour')) {
 			document.body.style.backgroundColor = sessionStorage.getItem('colour');
 		} else {
 			document.body.style.backgroundColor = '#282c34';
@@ -83,9 +91,9 @@ import { ConnectWallet } from "@thirdweb-dev/react";
 
 	};
 
-	if (currentChain != undefined) {
-		console.log(currentChain);
-	}
+	// if (currentChain != undefined) {
+	// 	console.log(currentChain);
+	// }
 
 
 	let topRight = '';
@@ -112,6 +120,9 @@ import { ConnectWallet } from "@thirdweb-dev/react";
 		setInputAddress(myDefaultAddress);
 
 		const addressCheck = await addressChecker(myDefaultAddress);
+
+		console.log(Ethereum);
+
 		console.log("Valid Address?: ", addressCheck);
 		if (addressCheck) {
 			setContractAddress(myDefaultAddress);
@@ -162,9 +173,9 @@ import { ConnectWallet } from "@thirdweb-dev/react";
 		if (loaded) setLoaded(false);
 	}
 
-	console.log(isConnected);
-	console.log(currentChain);
-	console.log(network);
+	// console.log(isConnected);
+	// console.log(currentChain);
+	// console.log(network);
 
 
 	return (
@@ -190,13 +201,13 @@ import { ConnectWallet } from "@thirdweb-dev/react";
 								<>
 
 									<p></p>
-									{network == 80001 && 
-									<>
-									<button className="contract-input-button" onClick={handleInputClick}>Use My ERC-20 Token contract: </button>
-									<code> {myDefaultAddress} </code>
-									<p></p>
-									</>
-								}
+									{network == 80001 &&
+										<>
+											<button className="contract-input-button" onClick={handleInputClick}>Use My ERC-20 Token contract: </button>
+											<code> {myDefaultAddress} </code>
+											<p></p>
+										</>
+									}
 
 									<input className="contract-input-field" type="text" value={inputAddress} onChange={handleInputChange} placeholder="Enter contract address" />
 									<code>{!isValidAddress && inputAddress.length > 0 && inputAddress.length != 42 && "Not a valid address"}</code>
@@ -232,7 +243,7 @@ import { ConnectWallet } from "@thirdweb-dev/react";
 						<p></p>
 
 						{currentChain != undefined && isConnected == "connected" && network != currentChain.chainId &&
-							<button className='switch-network-button' onClick={switchNetwork}>Switch to {network==80001? "Mumbai Network" : "Ethereum Network"}</button>
+							<button className='switch-network-button' onClick={switchNetwork}>Switch to {network == 80001 ? "Mumbai Network" : "Ethereum Network"}</button>
 						}
 
 						<MainComponent contractAddress={contractAddress} contract={contract} isConnected={isConnected} isValidAddress={isValidAddress} />

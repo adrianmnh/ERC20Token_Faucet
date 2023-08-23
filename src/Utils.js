@@ -1,5 +1,5 @@
 export function validateInputAddress(input) {
-	if (input.length == 42 && input.substring(0, 2) == "0x") {
+	if (input.length === 42 && input.substring(0, 2) === "0x") {
 		return true;
 	}
 	return false;
@@ -9,11 +9,11 @@ export function fetchContractAbi(abi, read, write, payables) {
 	// console.log(abi);
 	abi.forEach(element => {
 		// console.log(element);
-		if (element.type == "function") {
-			if(element.stateMutability == "payable"){
+		if (element.type === "function") {
+			if(element.stateMutability === "payable"){
 				payables.add(element.name);
 			}
-			if (element.stateMutability == "view") {
+			if (element.stateMutability === "view") {
 				read.set(element.name, new Map());
 				element.inputs.forEach(input => {
 					read.get(element.name).set(input.name, input.type);
@@ -33,7 +33,7 @@ export function processFunctionOutput(output) {
 	// console.log(output);
 
 	if (typeof output === "object") {
-		if(output.receipt != undefined) {
+		if(output.receipt !== undefined) {
 			return "Transaction sent";
 		}
 		return output.toString();

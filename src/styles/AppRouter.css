@@ -22,14 +22,20 @@
 }
 
 .navbar-link {
+	background: none!important;
+	border: none;
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',    monospace;
 	font-size: 1.3em;
 	text-decoration: none;
 	color: white;
 	padding: 2em 4em;
 	margin: 0em 1em;
-	transition: background-color 0.3s;
+	/* transition: background-color 0.3s; */
 	/* border-radius: 40px; */
+}
+
+.navbar-link::after{
+	background: none!important;
 }
 
 .navbar-link:hover {
@@ -44,7 +50,7 @@
 
 /* Highlight the current page link */
 .navbar-link.active {
-	background-color: gold;
+	background: none!important;
 	color: black;
 
 }
