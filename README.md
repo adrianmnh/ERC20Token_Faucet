@@ -1,4 +1,4 @@
-# `ERC20 Faucet React Project with Thirdweb Framework`
+# `Smart Contract Reader Project with Thirdweb Framework`
 
 This repository contains the source code for a project written with React and Thirdweb framework. 
 
